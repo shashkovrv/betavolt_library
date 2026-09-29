@@ -25,9 +25,9 @@ htmlcov/
 
 # Materials Project cache & large intermediate downloads
 data/01_raw/*.json
-data/01_raw/*.parquet
+!data/01_raw/*.parquet
 !data/01_raw/.gitkeep
-data/02_intermediate/*.parquet
+!data/02_intermediate/*.parquet
 !data/02_intermediate/.gitkeep
 data/03_features/*.parquet
 !data/03_features/.gitkeep
