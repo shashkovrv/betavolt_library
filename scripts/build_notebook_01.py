@@ -18,7 +18,7 @@ def create_notebook():
                 "cell_type": "markdown",
                 "metadata": {},
                 "source": [
-                    "# 🔬 Исследовательский ноутбук 1: Кристаллохимия, симметрия и перенос бета-излучения\n",
+                    "# Ноутбук 1: Кристаллохимия, симметрия и перенос бета-излучения\n",
                     "\n",
                     "**Цели работы:**\n",
                     "1. Анализ распределений электронных и кристаллографических свойств (сингонии, прямозонность, экспериментальные кристаллы ICSD);\n",
@@ -62,7 +62,7 @@ def create_notebook():
                     "    get_isotope\n",
                     ")\n",
                     "\n",
-                    "print(f'✅ Физическое ядро подключено. Доступные изотопы: {list(ISOTOPES.keys())}')"
+                    "print(f'[OK] Физическое ядро подключено. Доступные изотопы: {list(ISOTOPES.keys())}')"
                 ]
             },
             {
@@ -82,8 +82,8 @@ def create_notebook():
                     "data_path = project_root / 'data' / '02_intermediate' / 'semiconductors_cleaned.parquet'\n",
                     "df = pd.read_parquet(data_path)\n",
                     "\n",
-                    "print(f'📊 Загружено полупроводниковых фаз: {len(df):,}')\n",
-                    "print(f'📋 Количество колонок: {len(df.columns)}')\n",
+                    "print(f'Загружено полупроводниковых фаз: {len(df):,}')\n",
+                    "print(f'Количество колонок: {len(df.columns)}')\n",
                     "display(df[['material_id', 'formula_pretty', 'band_gap', 'density', 'crystal_system', 'is_gap_direct', 'has_icsd', 'energy_above_hull']].head(5))"
                 ]
             },
@@ -254,7 +254,7 @@ def create_notebook():
                     "r_csda = csda_range_integral(e_ni63, si['rho'], si['Z_eff'], si['A_eff'])\n",
                     "diff_pct = abs(r_feldman - r_csda) / r_feldman * 100.0\n",
                     "\n",
-                    "print(f'📊 Сравнение моделей пробега в кремнии (Si) при энергии 17.4 кэВ (Ni-63):')\n",
+                    "print(f'Сравнение моделей пробега в кремнии (Si) при энергии 17.4 кэВ (Ni-63):')\n",
                     "print(f'   - Закон Фельдмана:       {r_feldman:.3f} мкм')\n",
                     "print(f'   - Численный интеграл CSDA: {r_csda:.3f} мкм')\n",
                     "print(f'   - Относительное расхождение: {diff_pct:.2f}% (высокая сходимость < 5%!)')"
@@ -303,7 +303,7 @@ def create_notebook():
                     "plt.tight_layout()\n",
                     "plt.show()\n",
                     "\n",
-                    "print(f'💡 Вывод: Для плотных кристаллов (CdTe, GaN, Ga2O3) толщина чипа всего 1.5–3 мкм достаточна для 99% поглощения.')\n",
+                    "print(f'Вывод: Для плотных кристаллов (CdTe, GaN, Ga2O3) толщина чипа всего 1.5–3 мкм достаточна для 99% поглощения.')\n",
                     "print(f'   Для легких кристаллов (Si, Алмаз) требуется чип толщиной 7–10 мкм.')"
                 ]
             },
@@ -338,7 +338,7 @@ def create_notebook():
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(nb, f, indent=2, ensure_ascii=False)
-    print(f"✅ Ноутбук успешно создан: {out_path}")
+    print(f"Ноутбук успешно создан: {out_path}")
 
 if __name__ == "__main__":
     create_notebook()
