@@ -1,0 +1,43 @@
+# ==============================================================================
+# КОНФИГУРАЦИЯ МНОГОКРИТЕРИАЛЬНОГО СКРИНИНГА И ПАРЕТО-ОПТИМИЗАЦИИ
+# Организация: Самарский государственный технический университет (СамГТУ)
+# ==============================================================================
+
+# Критерии радиационной безопасности и долговечности
+radiation_safety_criteria:
+  # Максимальная переданная кинетическая энергия электрона отдачи T_max
+  # должна быть строго меньше порога дефектообразования E_d (T_max < E_d):
+  require_subthreshold_regime: true
+  max_allowed_displacement_cross_section_barn: 0.1  # Предельное сечение смещения атома решетки
+
+  # Минимальная толщина поглотителя (множитель к максимальному пробегу Фельдмана R_max):
+  min_absorber_thickness_multiplier: 3.0
+
+# Целевые метрики Парето-скрининга:
+pareto_optimization:
+  objectives:
+    # 1. Теоретический предельный КПД бетавольтаики (Shockley-Queisser / Olsen limit)
+    - name: "theoretical_efficiency_percent"
+      direction: "maximize"
+      weight: 0.40
+
+    # 2. Радиационный порог смещения атомов решетки E_d (долговечность кристалла)
+    - name: "displacement_threshold_Ed_eV"
+      direction: "maximize"
+      weight: 0.30
+
+    # 3. Термодинамическая стабильность (расстояние до выпуклой оболочки)
+    - name: "energy_above_hull_eV"
+      direction: "minimize"
+      weight: 0.15
+
+    # 4. Пробег бета-частиц R_max (чем компактнее поглотитель, тем тоньше элемент)
+    - name: "electron_range_microns"
+      direction: "minimize"
+      weight: 0.15
+
+# Пороги отсечения для финального ТОП-списка кандидатов
+final_candidate_thresholds:
+  min_theoretical_efficiency_percent: 5.0
+  min_displacement_threshold_eV: 15.0
+  max_toxicity_class: 3   # Не выше 3 класса опасности (умеренно опасные)

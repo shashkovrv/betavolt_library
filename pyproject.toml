@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "betavolt-screening"
+version = "0.1.0"
+description = "Machine learning and computational modeling for screening betavoltaic semiconductors (Samara State Technical University)"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "Samara State Technical University Research Team" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers"
+testpaths = [
+    "tests"
+]
+pythonpath = [
+    "."
+]

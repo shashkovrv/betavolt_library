@@ -1,0 +1,43 @@
+# ==============================================================================
+# КОНФИГУРАЦИЯ МАШИННОГО ОБУЧЕНИЯ (CatBoost Delta-Learning)
+# Организация: Самарский государственный технический университет (СамГТУ)
+# Методология: Ramakrishnan et al. (2015), Matbench benchmark (Dunn et al., 2020)
+# ==============================================================================
+
+# Воспроизводимость эксперимента
+reproducibility:
+  random_seed: 42
+
+# Конфигурация признакового пространства (Feature Engineering)
+features:
+  use_magpie_compositional: true    # Генерация набора дескрипторов Magpie через Matminer
+  include_density: true             # Плотность кристалла (г/см3)
+  include_volume_per_atom: true     # Удельный объем на атом (А^3)
+  include_formation_energy: true    # Энергия образования (эВ/атом)
+  include_electronegativity: true   # Разность электроотрицательностей по Полингу
+
+# Параметры градиентного бустинга CatBoostRegressor (для калибровки DFT -> Эксперимент)
+catboost_delta_model:
+  target_property: "experimental_band_gap"
+  baseline_feature: "dft_band_gap"  # Предсказание разницы: Delta = E_g(эксп) - E_g(DFT PBE)
+  iterations: 1200
+  learning_rate: 0.03
+  depth: 6
+  l2_leaf_reg: 3.5
+  loss_function: "RMSE"
+  eval_metric: "MAE"
+  early_stopping_rounds: 50
+  verbose: 100
+
+# Стратегия валидации
+validation:
+  strategy: "k_fold"
+  n_splits: 5
+  shuffle: true
+
+# Сериализация и артефакты
+artifacts:
+  model_dir: "models"
+  model_filename: "catboost_delta_bandgap.cbm"
+  metrics_report: "reports/tables/ml_metrics_summary.json"
+  shap_plot_dir: "reports/figures/ml_verification"
